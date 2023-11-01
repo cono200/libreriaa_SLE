@@ -1,7 +1,10 @@
+using libreriaa_SLE.Data;
+using libreriaa_SLE.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,9 +19,11 @@ namespace libreriaa_SLE
 {
     public class Startup
     {
+        public string ConnectionString { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ConnectionString = Configuration.GetConnectionString("DefaultConnectionString");
         }
 
         public IConfiguration Configuration { get; }
@@ -28,6 +33,14 @@ namespace libreriaa_SLE
         {
 
             services.AddControllers();
+            //CONFIGURAR DBCONTEXT CON SQL
+
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
+
+
+            //CONFIGURAR EL SERVICIO PARA QUE PUEDA SER USADO
+            services.AddTransient<BooksServicecs>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "libreriaa_SLE", Version = "v1" });
@@ -54,6 +67,7 @@ namespace libreriaa_SLE
             {
                 endpoints.MapControllers();
             });
+            AppDbinitializer.Seed(app);
         }
     }
 }
