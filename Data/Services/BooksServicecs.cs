@@ -2,6 +2,8 @@
 using libreriaa_SLE.Data.Models;
 using libreriaa_SLE.Data.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace libreriaa_SLE.Data.Services
 {
@@ -35,6 +37,9 @@ namespace libreriaa_SLE.Data.Services
             _context.SaveChanges();
         }
 
+
+        public List<Books> GetAllBks() => _context.Books.ToList();
+        public Books GetBooksById(int bookid) => _context.Books.FirstOrDefault(n => n.id == bookid);
 
 
     }
