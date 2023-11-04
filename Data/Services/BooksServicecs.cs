@@ -70,6 +70,20 @@ namespace libreriaa_SLE.Data.Services
         }
 
 
+        public void DeleteBookById(int bookid)
+        {
+            var _book = _context.Books.FirstOrDefault(n => n.id == bookid);
+            if (_book != null)
+            {
+                _context.Books.Remove(_book);
+                _context.SaveChanges();
+            }
+
+
+
+        }
+
+
 
     }
 }
