@@ -43,5 +43,20 @@ namespace libreriaa_SLE.Controllers
 
 
 
+        [HttpPut("update-book-by-id/{id}")]
+        public IActionResult UpdateBookById(int id, [FromBody]BookVM book)
+        {
+            var updateBook = _booksService.UpdateBookByID(id, book);
+            return Ok(updateBook);
+
+
+
+
+
+        }
+
+
+
+
     }
 }
