@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace libreriaa_SLE.Data.Models
 {
@@ -15,6 +16,14 @@ namespace libreriaa_SLE.Data.Models
         public string CoverUrl { get; set; }
         public DateTime DateAdded { get; set; }
 
+        //PROPIEDADES DE NAVEGACION(EN ESTA PARTE ES DONDE "MAPEAMOS")
+
+
+        public int PublisherId { get; set; }
+        public Publisher Publisher { get; set; }
+
+
+        public List<Book_Author> Book_Authors { get; set; }
 
 
     }
